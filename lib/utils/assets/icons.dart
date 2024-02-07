@@ -17,4 +17,8 @@ class IconWidgets {
   static String password = "${basePath}ic_password.svg";
   static String phoN = "${basePath}ic_phone_number.svg";
   static String profile = "${basePath}ic_profile.svg";
+  static String plush = "${basePath}plus.svg";
+  static String union = "${basePath}Union.svg";
+  static String union2 = "${basePath}Union2.svg";
+  static String vector = "${basePath}Vector.svg";
 }

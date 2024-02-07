@@ -7,7 +7,7 @@ import 'package:phlipped/utils/variable_utils.dart';
 
 import '../../service/import_file.dart';
 import '../../utils/no_leading_space.dart';
-import '../../../web/validation_utils.dart';
+import '../../utils/regular_expretion_utils.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -62,7 +62,6 @@ class _SignUpState extends State<SignUp> {
                     CommonTextField(
                       hintText: VariableUtils.fullName,
                       pIcon: LocalAssets(imagePath: IconWidgets.fullName),
-                      regularExpression: RegularExpression.fullNamepattern,
                       validationType: ValidationType.name,
                       validationMessage: ValidationMsg.fullname,
                       textInputType: TextInputType.text,
@@ -116,7 +115,7 @@ class _SignUpState extends State<SignUp> {
                       hintText: 'Email',
                       pIcon: LocalAssets(imagePath: IconWidgets.email),
                       regularExpression:
-                          RegularExpression.emailAddressValidationPattern,
+                          RegularExpressionUtils.emailValidationPattern,
                       validationType: ValidationType.email,
                       validationMessage: ValidationMsg.emailIsRequired,
                       textInputType: TextInputType.emailAddress,
@@ -174,10 +173,11 @@ class _SignUpState extends State<SignUp> {
 
                     /// ...........phone...............
                     CommonTextField(
+                      textEditController: phoneController,
                       maxLength: 10,
                       hintText: VariableUtils.phoneNumber,
                       pIcon: LocalAssets(imagePath: IconWidgets.phoneIcon),
-                      regularExpression: RegularExpression.fullNamepattern,
+                      regularExpression: RegularExpressionUtils.phonRegExp,
                       validationType: ValidationType.phoNumber,
                       validationMessage: ValidationMsg.phoneIsRequired,
                       textInputType: TextInputType.phone,
@@ -236,7 +236,7 @@ class _SignUpState extends State<SignUp> {
                     CommonTextField(
                       hintText: VariableUtils.password,
                       pIcon: LocalAssets(imagePath: IconWidgets.password),
-                      regularExpression: RegularExpression.passwordValidPattern,
+                      regularExpression: RegularExpressionUtils.passwordPattern,
                       validationType: ValidationType.password,
                       validationMessage: ValidationMsg.passwordInValid,
                       textInputType: TextInputType.text,

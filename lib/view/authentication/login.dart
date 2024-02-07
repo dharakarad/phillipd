@@ -11,7 +11,9 @@ import 'package:phlipped/view/bottombar.dart';
 import 'package:phlipped/view/authentication/sighn_up.dart';
 import 'package:phlipped/utils/color_util.dart';
 
+import '../../commanWidgits/common_text_field.dart';
 import '../../utils/no_leading_space.dart';
+import '../../utils/regular_expretion_utils.dart';
 import 'forgot_password.dart';
 import '../home.dart';
 
@@ -62,52 +64,17 @@ class _loginState extends State<login> {
                           ),
 
                           /// ...........phone...............
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: TextFormField(
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.phone,
-                              maxLength: 10,
-                              inputFormatters: [
-                                NoLeadingSpaceFormatter(),
-                                FilteringTextInputFormatter.deny(
-                                  RegExp(r'^0+'),
-                                ),
-                              ],
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'field is empty';
-                                } else if (!RegExp(
-                                        r"^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$")
-                                    .hasMatch(value)) {
-                                  return ' Entar valid Mobile NUmber';
-                                }
-                                return null;
-                              },
-                              controller: phoneController,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Color(0xFFF2F3F2),
-                                  border: InputBorder.none,
-                                  errorBorder: OutlineInputBorder(
-                                      borderSide:
-                                          const BorderSide(color: Colors.red),
-                                      borderRadius: BorderRadius.circular(8)),
-
-                                  // border: InputBorder.none,
-                                  prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: LocalAssets(
-                                      imagePath: IconWidgets.phoneIcon,
-                                    ),
-                                  ),
-                                  hintText: VariableUtils.phoneNumber,
-                                  hintStyle: const TextStyle(
-                                    color: Color(0xff1616164d),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                  )),
-                            ),
+                          CommonTextField(
+                            maxLength: 10,
+                            hintText: VariableUtils.phoneNumber,
+                            pIcon:
+                                LocalAssets(imagePath: IconWidgets.phoneIcon),
+                            regularExpression:
+                                RegularExpressionUtils.phonRegExp,
+                            validationType: ValidationType.phoNumber,
+                            validationMessage: ValidationMsg.phoneIsRequired,
+                            textInputType: TextInputType.phone,
+                            isValidate: true,
                           ),
 
                           SizedBox(
@@ -115,60 +82,25 @@ class _loginState extends State<login> {
                           ),
 
                           ///.............password.............
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: TextFormField(
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              inputFormatters: [
-                                NoLeadingSpaceFormatter(),
-                                FilteringTextInputFormatter.deny(
-                                  RegExp(r'^0+'),
-                                ),
-                              ],
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'field is empty';
-                                } else if (!RegExp(
-                                        r"(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$")
-                                    .hasMatch(value)) {
-                                  return 'Entar valid Password';
-                                }
+                          CommonTextField(
+                            hintText: VariableUtils.password,
+                            pIcon: LocalAssets(imagePath: IconWidgets.password),
+                            regularExpression:
+                                RegularExpressionUtils.passwordPattern,
+                            validationType: ValidationType.password,
+                            validationMessage: ValidationMsg.passwordInValid,
+                            textInputType: TextInputType.text,
+                            isValidate: true,
+                            obscureValue: _loginobscureText,
+                            sIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _loginobscureText = !_loginobscureText;
+                                });
                               },
-                              controller: passwordController,
-                              obscureText: _loginobscureText,
-                              decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Color(0xFFF2F3F2),
-                                  border: InputBorder.none,
-                                  errorBorder: OutlineInputBorder(
-                                      borderSide:
-                                          const BorderSide(color: Colors.red),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  suffixIcon: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _loginobscureText = !_loginobscureText;
-                                      });
-                                    },
-                                    child: Icon(_loginobscureText
-                                        ? Icons.visibility_off
-                                        : Icons.visibility),
-                                  ),
-
-                                  // border: InputBorder.none,
-                                  prefixIcon: Padding(
-                                    padding: const EdgeInsets.all(12),
-                                    child: LocalAssets(
-                                      imagePath: IconWidgets.password,
-                                    ),
-                                  ),
-                                  hintText: VariableUtils.password,
-                                  hintStyle: const TextStyle(
-                                    color: Color(0xff1616164d),
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w500,
-                                  )),
+                              child: Icon(_loginobscureText
+                                  ? Icons.visibility_off
+                                  : Icons.visibility),
                             ),
                           ),
                           SizedBox(
@@ -224,14 +156,12 @@ class _loginState extends State<login> {
                               alignment: Alignment.topRight,
                               child: TextButton(
                                   onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                ForgotPassword(),
-                                          ));
-                                    }
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgotPassword(),
+                                        ));
                                   },
                                   child: Text(
                                     VariableUtils.forgotPassword,

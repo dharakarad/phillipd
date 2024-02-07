@@ -9,8 +9,10 @@ import 'package:phlipped/utils/assets/icons.dart';
 import 'package:phlipped/utils/assets/images.dart';
 import 'package:phlipped/utils/variable_utils.dart';
 
+import '../../commanWidgits/common_text_field.dart';
 import '../../utils/assets/common_assets.dart';
 import '../../utils/no_leading_space.dart';
+import '../../utils/regular_expretion_utils.dart';
 import 'login.dart';
 import 'otp_forgot_password.dart';
 
@@ -43,27 +45,19 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   padding: const EdgeInsets.only(top: 20, left: 20),
                   child: Row(
                     children: [
-                      LocalAssets(
-                        imagePath: IconWidgets.back,
+                      InkWell(
+                        child: LocalAssets(
+                          imagePath: IconWidgets.back,
+                        ),
                       ),
                       SizedBox(
                         width: 70.w,
                       ),
-                      InkWell(
-                          onTap: () {
-                            {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => login(),
-                                  ));
-                            }
-                          },
-                          child: LocalAssets(
-                            imagePath: ImageWidgits.logo,
-                            height: 24.823.h,
-                            width: 140.w,
-                          )),
+                      LocalAssets(
+                        imagePath: ImageWidgits.logo,
+                        height: 24.823.h,
+                        width: 140.w,
+                      ),
                     ],
                   ),
                 ),
@@ -80,49 +74,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.phone,
-                    inputFormatters: [
-                      NoLeadingSpaceFormatter(),
-                      FilteringTextInputFormatter.deny(
-                        RegExp(r'^0+'),
-                      ),
-                    ],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field is empty';
-                      } else if (!RegExp(
-                              r"^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$")
-                          .hasMatch(value)) {
-                        return ' Entar valid Mobile NUmber';
-                      }
-                      return null;
-                    },
-                    controller: phoneController,
-                    decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Color(0xFFF2F3F2),
-                        border: InputBorder.none,
-                        errorBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.red),
-                            borderRadius: BorderRadius.circular(8)),
 
-                        // border: InputBorder.none,
-                        prefixIcon: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: LocalAssets(
-                              imagePath: IconWidgets.phoneIcon,
-                            )),
-                        hintText: VariableUtils.phoneNumber,
-                        hintStyle: const TextStyle(
-                          color: Color(0xff1616164d),
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                        )),
-                  ),
+                ///  PHONE.................
+                CommonTextField(
+                  textEditController: phoneController,
+                  maxLength: 10,
+                  hintText: VariableUtils.phoneNumber,
+                  pIcon: LocalAssets(imagePath: IconWidgets.phoneIcon),
+                  regularExpression: RegularExpressionUtils.phonRegExp,
+                  validationType: ValidationType.phoNumber,
+                  validationMessage: ValidationMsg.phoneIsRequired,
+                  textInputType: TextInputType.phone,
+                  isValidate: true,
                 ),
                 SizedBox(
                   height: 20.h,

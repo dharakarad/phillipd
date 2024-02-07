@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:phlipped/view/listing.dart';
 import 'package:phlipped/view/notification_Screen.dart';
 
 import 'account.dart';
@@ -21,6 +22,7 @@ class _CommonBottomBarState extends State<CommonBottomBar> {
     NotificationScreen(),
     CartScreen(),
     Account(),
+    Listing(),
   ];
   @override
   Widget build(BuildContext context) {

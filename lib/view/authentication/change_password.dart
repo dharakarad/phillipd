@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,7 +12,9 @@ import 'package:phlipped/utils/variable_utils.dart';
 import 'package:phlipped/view/authentication/login.dart';
 import 'package:phlipped/utils/color_util.dart';
 
+import '../../commanWidgits/common_text_field.dart';
 import '../../utils/no_leading_space.dart';
+import '../../utils/regular_expretion_utils.dart';
 
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key});
@@ -41,7 +45,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                     height: 20.h,
                   ),
                   Padding(
-
                     padding: const EdgeInsets.only(top: 20, left: 20),
                     child: Row(
                       children: [
@@ -81,57 +84,25 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
 
                   ///..................Current password.................
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [
-                        NoLeadingSpaceFormatter(),
-                        FilteringTextInputFormatter.deny(
-                          RegExp(r'^0+'),
-                        ),
-                      ],
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'field is empty';
-                        } else if (!RegExp(
-                                r"(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$")
-                            .hasMatch(value)) {
-                          return 'Entar valid Password';
-                        }
+                  CommonTextField(
+                    textEditController: currentPasswordController,
+                    hintText: VariableUtils.currentPassword,
+                    pIcon: LocalAssets(imagePath: IconWidgets.password),
+                    regularExpression: RegularExpressionUtils.passwordPattern,
+                    validationType: ValidationType.password,
+                    validationMessage: ValidationMsg.passwordInValid,
+                    textInputType: TextInputType.text,
+                    isValidate: true,
+                    obscureValue: _currentobscureText,
+                    sIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _currentobscureText = !_currentobscureText;
+                        });
                       },
-                      controller: currentPasswordController,
-                      obscureText: _currentobscureText,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xFFF2F3F2),
-                          border: InputBorder.none,
-                          errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(8)),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _currentobscureText = !_currentobscureText;
-                              });
-                            },
-                            child: Icon(_currentobscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-
-                          // border: InputBorder.none,
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: LocalAssets(imagePath: IconWidgets.password,)
-                          ),
-                          hintText: VariableUtils.currentPassword,
-                          hintStyle: const TextStyle(
-                            color: Color(0xff1616164d),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
-                          )),
+                      child: Icon(_currentobscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
                     ),
                   ),
                   SizedBox(
@@ -139,57 +110,25 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
 
                   ///....................New Password.............
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [
-                        NoLeadingSpaceFormatter(),
-                        FilteringTextInputFormatter.deny(
-                          RegExp(r'^0+'),
-                        ),
-                      ],
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'field is empty';
-                        } else if (!RegExp(
-                                r"(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$")
-                            .hasMatch(value)) {
-                          return 'Entar valid Password';
-                        }
+                  CommonTextField(
+                    textEditController: NewPasswordController,
+                    hintText: VariableUtils.newPassword,
+                    pIcon: LocalAssets(imagePath: IconWidgets.password),
+                    regularExpression: RegularExpressionUtils.passwordPattern,
+                    validationType: ValidationType.password,
+                    validationMessage: ValidationMsg.passwordInValid,
+                    textInputType: TextInputType.text,
+                    isValidate: true,
+                    obscureValue: _newobscureText,
+                    sIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _newobscureText = !_newobscureText;
+                        });
                       },
-                      controller: NewPasswordController,
-                      obscureText: _newobscureText,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xFFF2F3F2),
-                          border: InputBorder.none,
-                          errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(8)),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _newobscureText = !_newobscureText;
-                              });
-                            },
-                            child: Icon(_newobscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-
-                          // border: InputBorder.none,
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child:LocalAssets(imagePath: IconWidgets.password,)
-                          ),
-                          hintText: VariableUtils.newPassword,
-                          hintStyle: const TextStyle(
-                            color: Color(0xff1616164d),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
-                          )),
+                      child: Icon(_newobscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
                     ),
                   ),
                   SizedBox(
@@ -197,57 +136,25 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
 
                   ///...............Confirm New PAssword..........
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [
-                        NoLeadingSpaceFormatter(),
-                        FilteringTextInputFormatter.deny(
-                          RegExp(r'^0+'),
-                        ),
-                      ],
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'field is empty';
-                        } else if (!RegExp(
-                                r"(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$")
-                            .hasMatch(value)) {
-                          return 'Entar valid Password';
-                        }
+                  CommonTextField(
+                    textEditController: confirmnewPasswordController,
+                    hintText: VariableUtils.confirmNewPassword,
+                    pIcon: LocalAssets(imagePath: IconWidgets.password),
+                    regularExpression: RegularExpressionUtils.passwordPattern,
+                    validationType: ValidationType.password,
+                    validationMessage: ValidationMsg.passwordInValid,
+                    textInputType: TextInputType.text,
+                    isValidate: true,
+                    obscureValue: _confirmobscureText,
+                    sIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _confirmobscureText = !_confirmobscureText;
+                        });
                       },
-                      controller: confirmnewPasswordController,
-                      obscureText: _confirmobscureText,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xFFF2F3F2),
-                          border: InputBorder.none,
-                          errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(8)),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _confirmobscureText = !_confirmobscureText;
-                              });
-                            },
-                            child: Icon(_confirmobscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-
-                          // border: InputBorder.none,
-                          prefixIcon: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: LocalAssets(imagePath: IconWidgets.password,)
-                          ),
-                          hintText: VariableUtils.confirmNewPassword,
-                          hintStyle: const TextStyle(
-                            color: Color(0xff1616164d),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
-                          )),
+                      child: Icon(_confirmobscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
                     ),
                   ),
                   SizedBox(
@@ -259,19 +166,23 @@ class _ChangePasswordState extends State<ChangePassword> {
                     title: VariableUtils.savePassword,
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => login(),
-                            ));
-                      } else {
-                        final snackbar = SnackBar(
-                            backgroundColor: Colors.green,
-                            content: Text(
-                              'plese Fill All Details',
-                              style: TextStyle(color: Colors.black),
-                            ));
-                        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                        if (NewPasswordController.text ==
+                            confirmnewPasswordController.text) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => login(),
+                              ));
+                        } else {
+                          final snackbar = SnackBar(
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.red,
+                              content: Text(
+                                'bothPasswordMustBeSame',
+                                style: TextStyle(color: Colors.black),
+                              ));
+                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                        }
                       }
                     },
                   )

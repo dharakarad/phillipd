@@ -8,9 +8,12 @@ import 'package:phlipped/utils/assets/common_assets.dart';
 import 'package:phlipped/utils/assets/icons.dart';
 import 'package:phlipped/utils/assets/images.dart';
 import 'package:phlipped/utils/variable_utils.dart';
+import 'package:phlipped/view/bottombar.dart';
 import 'package:phlipped/view/home.dart';
 
+import '../../commanWidgits/common_text_field.dart';
 import '../../utils/no_leading_space.dart';
+import '../../utils/regular_expretion_utils.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -77,54 +80,25 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
 
                   /// ..................new password..............
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [
-                        NoLeadingSpaceFormatter(),
-                        FilteringTextInputFormatter.deny(
-                          RegExp(r'^0+'),
-                        ),
-                      ],
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'field is empty';
-                        }
+                  CommonTextField(
+                    textEditController: NewpasswordController,
+                    hintText: VariableUtils.newPassword,
+                    pIcon: LocalAssets(imagePath: IconWidgets.password),
+                    regularExpression: RegularExpressionUtils.passwordPattern,
+                    validationType: ValidationType.password,
+                    validationMessage: ValidationMsg.passwordInValid,
+                    textInputType: TextInputType.text,
+                    isValidate: true,
+                    obscureValue: _obscureText,
+                    sIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
                       },
-                      controller: NewpasswordController,
-                      obscureText: _obscureText,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xFFF2F3F2),
-                          border: InputBorder.none,
-                          errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(8)),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _obscureText = !_obscureText;
-                              });
-                            },
-                            child: Icon(_obscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-
-                          // border: InputBorder.none,
-                          prefixIcon: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: LocalAssets(
-                                imagePath: IconWidgets.password,
-                              )),
-                          hintText: VariableUtils.newPassword,
-                          hintStyle: const TextStyle(
-                            color: Color(0xff1616164d),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
-                          )),
+                      child: Icon(_obscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
                     ),
                   ),
                   const SizedBox(
@@ -132,56 +106,25 @@ class _ResetPasswordState extends State<ResetPassword> {
                   ),
 
                   /// ..................Confirm password..............
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
-                      inputFormatters: [
-                        NoLeadingSpaceFormatter(),
-                        FilteringTextInputFormatter.deny(
-                          RegExp(r'^0+'),
-                        ),
-                      ],
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return ' field empty';
-                        }
-                        if (value != NewpasswordController.text) {
-                          return 'not match';
-                        }
+                  CommonTextField(
+                    textEditController: confirmPassController,
+                    hintText: VariableUtils.confirmNewPassword,
+                    pIcon: LocalAssets(imagePath: IconWidgets.password),
+                    regularExpression: RegularExpressionUtils.passwordPattern,
+                    validationType: ValidationType.password,
+                    validationMessage: ValidationMsg.passwordInValid,
+                    textInputType: TextInputType.text,
+                    isValidate: true,
+                    obscureValue: _confirmobscureText,
+                    sIcon: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _confirmobscureText = !_confirmobscureText;
+                        });
                       },
-                      controller: confirmPassController,
-                      obscureText: _confirmobscureText,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xFFF2F3F2),
-                          border: InputBorder.none,
-                          errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.red),
-                              borderRadius: BorderRadius.circular(8)),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _confirmobscureText = !_confirmobscureText;
-                              });
-                            },
-                            child: Icon(_confirmobscureText
-                                ? Icons.visibility_off
-                                : Icons.visibility),
-                          ),
-
-                          // border: InputBorder.none,
-                          prefixIcon: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child:
-                                  LocalAssets(imagePath: IconWidgets.password)),
-                          hintText: VariableUtils.confirmPassword,
-                          hintStyle: const TextStyle(
-                            color: Color(0xff1616164d),
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
-                          )),
+                      child: Icon(_confirmobscureText
+                          ? Icons.visibility_off
+                          : Icons.visibility),
                     ),
                   ),
                   const SizedBox(
@@ -190,24 +133,29 @@ class _ResetPasswordState extends State<ResetPassword> {
 
                   ///.................button...............
                   CustomButton(
-                      title: 'Save Password',
-                      onTap: () {
-                        if (_formKey.currentState!.validate()) {
+                    title: VariableUtils.savePassword,
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (NewpasswordController.text ==
+                            confirmPassController.text) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => home(),
+                                builder: (context) => CommonBottomBar(),
                               ));
                         } else {
                           final snackbar = SnackBar(
-                              backgroundColor: Colors.green,
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.red,
                               content: Text(
-                                'plese Fill All Details',
+                                'bothPasswordMustBeSame',
                                 style: TextStyle(color: Colors.black),
                               ));
                           ScaffoldMessenger.of(context).showSnackBar(snackbar);
                         }
-                      })
+                      }
+                    },
+                  )
                   // Container(
                   //   //height: 44.h,
                   //   width: 335.w,

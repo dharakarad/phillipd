@@ -5,6 +5,7 @@ class ValidationMsg {
   static String passisRequired = "Password is required";
   static String isRequired = 'is required';
   static String phoneIsRequired = "Phone Number is required";
+  static String phoneInvalid = "invalide phonNumber";
   static String emailIsRequired = "Email is required";
   static String somethingWentToWrong = "Something went Wrong";
   static String pleaseEnterValidEmail = "Please Enter Valid Email";
@@ -41,6 +42,7 @@ class RegularExpressionUtils {
   static String pricePattern = r'^\d+\.?\d*';
   static String nameRegExp = r"^[A-Za-zÆØÅæøå]+$";
   static String phonRegExp = r'^(?:[+0]9)?[0-9]{10}$;';
+  static String pincodepattern = r'^\d{6}$';
 
   /// Validation Expression Pattern
   static String emailValidationPattern =
@@ -51,8 +53,8 @@ class RegularExpressionUtils {
 class ValidationMethod {
   /// EMAIL VALIDATION METHOD
   static String? validateEmail(value) {
-    String pattern =
-        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
+    String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!"
+        r"#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 
     RegExp regex = RegExp(pattern);
     if (value == null || value.isEmpty || !regex.hasMatch(value)) {
@@ -64,12 +66,23 @@ class ValidationMethod {
 
   /// MOBILE VALIDATION METHOD
   static String? validatePhoneNo(value) {
-    if ((value as String).isEmpty) {
-      return ValidationMsg.phoneIsRequired;
-    } else if (value.length < 10) {
-      return ValidationMsg.mobileNoLength;
+    bool regex = RegExp(RegularExpressionUtils.phonRegExp).hasMatch(value);
+    if (value == null) {
+      return 'Enter phone number';
+    } else if (regex == false) {
+      return ValidationMsg.phoneInvalid;
     }
-    return null;
+  }
+
+  ///PINCODE VALIDATION METHOD
+  static String? validateZipCode(value) {
+    bool regex = RegExp(RegularExpressionUtils.pincodepattern).hasMatch(value);
+    if (value.isEmpty) {
+      return ValidationMsg.pincodeisRequired;
+    } else if (regex == false) {
+      return 'Invalid Pincord';
+    }
+    return null; // Return null if the input is valid
   }
 
   /// PASSWORD VALIDATION METHOD
@@ -86,6 +99,14 @@ class ValidationMethod {
       return VariableUtils.haveOneDigit;
     } else if (RegExp(r'(?=.*?[!@#\$&*~])').hasMatch(value) == false) {
       return VariableUtils.haveOneSpecialCharacter;
+    }
+    return null;
+  }
+
+  /// IS REQUIRED VALIDATION METHOD  (COMMON METHOD)
+  static String? validateIsRequired(value) {
+    if ((value as String).isEmpty) {
+      return ValidationMsg.isRequired;
     }
     return null;
   }

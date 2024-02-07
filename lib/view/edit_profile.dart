@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:phlipped/commanWidgits/Custom_text.dart';
 import 'package:phlipped/view/account.dart';
 import 'package:phlipped/utils/color_util.dart';
 
+import '../commanWidgits/common_text_field.dart';
+import '../commanWidgits/common_tital_field.dart';
 import '../commanWidgits/custom_btn.dart';
+import '../utils/assets/common_assets.dart';
+import '../utils/assets/icons.dart';
 import '../utils/no_leading_space.dart';
+import '../utils/regular_expretion_utils.dart';
+import '../utils/variable_utils.dart';
 import 'authentication/change_password.dart';
 
 class EditProfile extends StatefulWidget {
@@ -94,155 +101,42 @@ class _EditProfileState extends State<EditProfile> {
                 SizedBox(
                   height: 15.h,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Full Name',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17),
-                      )),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
-                    inputFormatters: [
-                      NoLeadingSpaceFormatter(),
-                      FilteringTextInputFormatter.deny(
-                        RegExp(r'^0+'),
-                      ),
-                    ],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field is empty';
-                      }
-                      return null;
-                    },
-                    controller: nameController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xFFF2F3F2),
-                      border: InputBorder.none,
-                      errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                  ),
+                CommonTextField(
+                  title: 'Full Name',
+                  validationType: ValidationType.name,
+                  validationMessage: ValidationMsg.fullname,
+                  textInputType: TextInputType.text,
+                  isValidate: true,
                 ),
 
                 ///,,,,,,,,,,,,phonnumber.....................
                 SizedBox(
                   height: 15.h,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Phone Nunber',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17),
-                      )),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.phone,
-                    inputFormatters: [
-                      NoLeadingSpaceFormatter(),
-                      FilteringTextInputFormatter.deny(
-                        RegExp(r'^0+'),
-                      ),
-                    ],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field is empty';
-                      } else if (!RegExp(
-                              r"^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$")
-                          .hasMatch(value)) {
-                        return ' Entar valid Mobile NUmber';
-                      }
-                      return null;
-                    },
-                    controller: phoneController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xFFF2F3F2),
-                      border: InputBorder.none,
-                      errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(8)),
-
-                      // border: InputBorder.none,
-                    ),
-                  ),
+                CommonTextField(
+                  title: 'Phone Number',
+                  textEditController: phoneController,
+                  maxLength: 10,
+                  regularExpression: RegularExpressionUtils.phonRegExp,
+                  validationType: ValidationType.phoNumber,
+                  validationMessage: ValidationMsg.phoneIsRequired,
+                  textInputType: TextInputType.phone,
+                  isValidate: true,
                 ),
 
                 ///..........Email.................
                 SizedBox(
                   height: 15.h,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Email',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17),
-                      )),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    inputFormatters: [
-                      NoLeadingSpaceFormatter(),
-                      FilteringTextInputFormatter.deny(
-                        RegExp(r'^0+'),
-                      ),
-                    ],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field is empty';
-                      } else if (!RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value)) {
-                        return ' Not Currect EmailID';
-                      }
-                    },
-                    controller: EmailController,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xFFF2F3F2),
-                      border: InputBorder.none,
-                      errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(8)),
 
-                      // border: InputBorder.none,
-                    ),
-                  ),
+                CommonTextField(
+                  title: "Email",
+                  regularExpression:
+                      RegularExpressionUtils.emailValidationPattern,
+                  validationType: ValidationType.email,
+                  validationMessage: ValidationMsg.emailIsRequired,
+                  textInputType: TextInputType.emailAddress,
+                  isValidate: true,
                 ),
 
                 ///...........Button.............

@@ -6,7 +6,9 @@ import 'package:phlipped/commanWidgits/custom_btn.dart';
 import 'package:phlipped/view/listing.dart';
 import 'package:phlipped/utils/color_util.dart';
 
+import '../commanWidgits/common_text_field.dart';
 import '../utils/no_leading_space.dart';
+import '../utils/regular_expretion_utils.dart';
 import 'account.dart';
 import 'authentication/change_password.dart';
 
@@ -68,95 +70,24 @@ class _AddressState extends State<Address> {
                 SizedBox(
                   height: 15.h,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Street',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17),
-                      )),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
-                    inputFormatters: [
-                      NoLeadingSpaceFormatter(),
-                      FilteringTextInputFormatter.deny(
-                        RegExp(r'^0+'),
-                      ),
-                    ],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field is empty';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintMaxLines: 1,
-                      filled: true,
-                      fillColor: Color(0xFFF2F3F2),
-                      border: InputBorder.none,
-                      errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                  ),
+                CommonTextField(
+                  title: 'Street',
+                  validationType: ValidationType.name,
+                  validationMessage: ValidationMsg.isRequired,
+                  textInputType: TextInputType.text,
+                  isValidate: true,
                 ),
 
                 ///................city..............
                 SizedBox(
                   height: 15.h,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'City',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17),
-                      )),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
-                    inputFormatters: [
-                      NoLeadingSpaceFormatter(),
-                      FilteringTextInputFormatter.deny(
-                        RegExp(r'^0+'),
-                      ),
-                    ],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field is empty';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xFFF2F3F2),
-                      border: InputBorder.none,
-                      errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                  ),
+                CommonTextField(
+                  title: 'City',
+                  validationType: ValidationType.name,
+                  validationMessage: ValidationMsg.isRequired,
+                  textInputType: TextInputType.text,
+                  isValidate: true,
                 ),
 
                 ///..............State.................
@@ -168,48 +99,12 @@ class _AddressState extends State<Address> {
                     Expanded(
                       child: Column(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 15),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'State',
-                                  style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 17),
-                                )),
-                          ),
-                          // SizedBox(
-                          //   height: 3.h,
-                          // ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: TextFormField(
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              inputFormatters: [
-                                NoLeadingSpaceFormatter(),
-                                FilteringTextInputFormatter.deny(
-                                  RegExp(r'^0+'),
-                                ),
-                              ],
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'field is empty';
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color(0xFFF2F3F2),
-                                border: InputBorder.none,
-                                errorBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.circular(8)),
-                              ),
-                            ),
+                          CommonTextField(
+                            title: 'State',
+                            validationType: ValidationType.name,
+                            validationMessage: ValidationMsg.isRequired,
+                            textInputType: TextInputType.text,
+                            isValidate: true,
                           ),
                         ],
                       ),
@@ -218,48 +113,14 @@ class _AddressState extends State<Address> {
                       width: 170.w,
                       child: Column(
                         children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 15),
-                            child: Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'PinCode',
-                                  style: TextStyle(
-                                      fontFamily: 'Poppins',
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 17),
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: TextFormField(
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              inputFormatters: [
-                                NoLeadingSpaceFormatter(),
-                                FilteringTextInputFormatter.deny(
-                                  RegExp(r'^0+'),
-                                ),
-                              ],
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'field is empty';
-                                } else if (!RegExp(r"^[1-9][0-9]{5}$")
-                                    .hasMatch(value)) {
-                                  return 'Entar 6 digit pincode';
-                                }
-                              },
-                              controller: pincodeController,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Color(0xFFF2F3F2),
-                                border: InputBorder.none,
-                                errorBorder: OutlineInputBorder(
-                                    borderSide:
-                                        const BorderSide(color: Colors.red),
-                                    borderRadius: BorderRadius.circular(8)),
-                              ),
-                            ),
+                          CommonTextField(
+                            title: 'PinCode',
+                            regularExpression:
+                                RegularExpressionUtils.pincodepattern,
+                            validationType: ValidationType.name,
+                            validationMessage: ValidationMsg.isRequired,
+                            textInputType: TextInputType.text,
+                            isValidate: true,
                           ),
                         ],
                       ),
@@ -271,70 +132,37 @@ class _AddressState extends State<Address> {
                 SizedBox(
                   height: 15.h,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 15),
-                  child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        'Country',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 17),
-                      )),
-                ),
-                SizedBox(
-                  height: 3.h,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: TextFormField(
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.text,
-                    inputFormatters: [
-                      NoLeadingSpaceFormatter(),
-                      FilteringTextInputFormatter.deny(
-                        RegExp(r'^0+'),
-                      ),
-                    ],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'field is empty';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0xFFF2F3F2),
-                      border: InputBorder.none,
-                      errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-                  ),
+                CommonTextField(
+                  title: 'Country',
+                  validationType: ValidationType.name,
+                  validationMessage: ValidationMsg.isRequired,
+                  textInputType: TextInputType.text,
+                  isValidate: true,
                 ),
                 SizedBox(
                   height: 15.h,
                 ),
 
                 ///.........button.............
-                CustomButton(title: 'Save Address', onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Account(),
-                        ));
-                  } else {
-                    final snackbar = SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text(
-                          'plese Fill All Details',
-                          style: TextStyle(color: Colors.black),
-                        ));
-                    ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                  }
-                })
+                CustomButton(
+                    title: 'Save Address',
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Account(),
+                            ));
+                      } else {
+                        final snackbar = SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text(
+                              'plese Fill All Details',
+                              style: TextStyle(color: Colors.black),
+                            ));
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                      }
+                    })
                 // Container(
                 //   //height: 44.h,
                 //   width: 335.w,
