@@ -4,9 +4,9 @@ import 'package:phlipped/utils/color_util.dart';
 import '../utils/typedef_utils.dart' as typdef;
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, this.onTap, required this.title});
+  const CustomButton({super.key, this.onTap, this.title});
   final typdef.OnTap? onTap;
-  final String title;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                title,
+                title ?? "",
                 style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Poppins',

@@ -1,13 +1,16 @@
+import 'dart:ffi';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+
 import 'package:phlipped/commanWidgits/Custom_text.dart';
 import 'package:phlipped/service/import_file.dart';
 import 'package:phlipped/utils/assets/common_assets.dart';
 import 'package:phlipped/utils/assets/icons.dart';
 import 'package:phlipped/utils/assets/images.dart';
-import 'package:phlipped/view/account.dart';
+import 'package:phlipped/view/post_item.dart';
 
 class Listing extends StatefulWidget {
   const Listing({super.key});
@@ -22,6 +25,7 @@ class _ListingState extends State<Listing> {
     {'icon': 'IconWidgets.vector', 'tital': 'Processing'},
     {'icon': 'IconWidgets.Union.svg', 'tital': 'Disapproved'},
   ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,15 +74,25 @@ class _ListingState extends State<Listing> {
                 top: 0,
                 left: 0,
                 right: 0,
-                child: Container(
-                  height: 100.h,
-                  width: 100.w,
-                  decoration: BoxDecoration(
-                      shape: BoxShape.circle, gradient: ColorUtils.appGrediant),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: LocalAssets(
-                      imagePath: IconWidgets.plush,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PostItem(),
+                        ));
+                  },
+                  child: Container(
+                    height: 100.h,
+                    width: 100.w,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: ColorUtils.appGrediant),
+                    child: Padding(
+                      padding: const EdgeInsets.all(30),
+                      child: LocalAssets(
+                        imagePath: IconWidgets.plush,
+                      ),
                     ),
                   ),
                 ),
@@ -111,29 +125,103 @@ class _ListingState extends State<Listing> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        height: 34.h,
-                        width: 34.w,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.green.shade100),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4),
-                          child: LocalAssets(imagePath: tab[index]['icon']),
-                        ),
-                      ),
-                      CustomText(tab[index]['tital'])
-                    ],
-                  ),
+                  commonRecent(
+                      title: 'Approved',
+                      color: Colors.green.shade100,
+                      icon: IconWidgets.union2),
+                  commonRecent(
+                      title: 'Processing',
+                      color: Colors.orange.shade100,
+                      icon: IconWidgets.vector),
+                  commonRecent(
+                      title: 'Disapproved',
+                      color: Colors.red.shade100,
+                      icon: IconWidgets.union)
                 ],
               ),
             ),
           ),
+          CommonListTile(
+              image: ImageWidgits.chairB,
+              tital: 'Leathr Sofa Set',
+              subtital: 'Highest \$580 \nLowest: \$132',
+              icon: IconWidgets.union),
+          CommonListTile(
+              image: ImageWidgits.sofaA,
+              tital: 'Leathr Sofa Set',
+              subtital: 'Highest \$580 \nLowest: \$132',
+              icon: IconWidgets.union2),
+          CommonListTile(
+              image: ImageWidgits.cubordC,
+              tital: 'Leathr Sofa Set',
+              subtital: 'Highest \$580 \nLowest: \$132',
+              icon: IconWidgets.vector),
         ],
       ),
     ));
+  }
+
+  SingleChildScrollView CommonListTile(
+      {required String tital,
+      required String subtital,
+      required String icon,
+      required String image}) {
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Container(
+          height: 90.w,
+          decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                    blurRadius: 1,
+                    spreadRadius: 1,
+                    color: Colors.grey.withOpacity(0.5)),
+              ]),
+          child: ListTile(
+            leading: LocalAssets(
+              imagePath: image,
+            ),
+            title: CustomText(
+              tital,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+              fontSize: 18,
+            ),
+            subtitle: CustomText(
+              subtital,
+              fontWeight: FontWeight.w400,
+              color: Colors.black,
+            ),
+            trailing: LocalAssets(
+              height: 30.w,
+              scaleSize: 5,
+              imagePath: icon,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Column commonRecent(
+      {required String title, required String icon, required Color color}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          height: 34.h,
+          width: 34.w,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5), color: color),
+          child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: LocalAssets(imagePath: icon)),
+        ),
+        CustomText(title),
+      ],
+    );
   }
 }

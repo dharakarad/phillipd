@@ -6,5 +6,11 @@ class ImageWidgits {
   static String ellipse = "${basePath}Ellipse 2.png";
   static String sofa = "${basePath}Rectangle 22.png";
   static String chair = "${basePath}Rectangle 23.png";
+  static String chairB = "${basePath}Rectangle 23B.png";
   static String cubord = "${basePath}Rectangle 24.png";
+  static String cubordC = "${basePath}Rectangle 23C.png";
+  static String sofaA = "${basePath}Rectangle 23A.png";
+  static String flower1 = "${basePath}flower1.png";
+  static String flower2 = "${basePath}flower2.png";
+  static String flower3 = "${basePath}flower3.png";
 }

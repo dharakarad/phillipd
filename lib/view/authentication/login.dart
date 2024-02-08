@@ -163,7 +163,7 @@ class _loginState extends State<login> {
                                               ForgotPassword(),
                                         ));
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     VariableUtils.forgotPassword,
                                     style: TextStyle(
                                         color: ColorUtils.login,

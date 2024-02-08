@@ -21,4 +21,6 @@ class IconWidgets {
   static String union = "${basePath}Union.svg";
   static String union2 = "${basePath}Union2.svg";
   static String vector = "${basePath}Vector.svg";
+  static String gallery = "${basePath}ic_ gallery.svg";
+  static String camera = "${basePath}ic_camera.svg";
 }
