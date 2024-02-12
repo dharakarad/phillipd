@@ -1,12 +1,18 @@
 import 'package:phlipped/commanWidgits/common_stepar.dart';
 import 'package:phlipped/utils/assets/common_assets.dart';
-
+import 'package:phlipped/commanWidgits/custom_btn.dart' as ctn;
 import '../commanWidgits/Custom_text.dart';
 import '../commanWidgits/custom_btn.dart';
 import '../service/import_file.dart';
 import '../utils/assets/images.dart';
+import 'details.dart';
 
-class ChooseImage extends StatelessWidget {
+class ChooseImage extends StatefulWidget {
+  @override
+  State<ChooseImage> createState() => _ChooseImageState();
+}
+
+class _ChooseImageState extends State<ChooseImage> {
   List<String> data = [
     ImageWidgits.flower1,
     ImageWidgits.flower2,
@@ -31,7 +37,7 @@ class ChooseImage extends StatelessWidget {
             child: CustomText(
           'Choose Image',
           fontWeight: FontWeight.w600,
-          fontSize: 25,
+          fontSize: 25.sp,
           color: Colors.black,
         )),
         actions: [
@@ -42,7 +48,7 @@ class ChooseImage extends StatelessWidget {
               child: CustomText(
                 'Cancel',
                 fontWeight: FontWeight.w600,
-                fontSize: 20,
+                fontSize: 20.sp,
                 color: Color(0xFF009BDF),
               ))
         ],
@@ -82,9 +88,16 @@ class ChooseImage extends StatelessWidget {
               },
             ),
           ),
-          const CommonStaper(
+          CommonStaper(
             currentStep: 1,
-            customButton: CustomButton(title: 'Next'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Details(),
+                  ));
+            },
+            title: 'Next',
           ),
         ],
       ),

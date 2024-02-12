@@ -61,12 +61,12 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         width: 90.w,
                       ),
-                      const Text(
+                      Text(
                         'Profile',
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
-                            fontSize: 30),
+                            fontSize: 30.sp),
                       ),
                     ],
                   ),

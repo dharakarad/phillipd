@@ -7,6 +7,7 @@ class ValidationMsg {
   static String phoneIsRequired = "Phone Number is required";
   static String phoneInvalid = "invalide phonNumber";
   static String emailIsRequired = "Email is required";
+  static String enterValidEmail = "Enter a valid email address";
   static String somethingWentToWrong = "Something went Wrong";
   static String pleaseEnterValidEmail = "Please Enter Valid Email";
   static String passwordLength = 'Must Be More Than 6 Char';
@@ -41,7 +42,8 @@ class RegularExpressionUtils {
   static String digitsDesPattern = r"[0-9-]";
   static String pricePattern = r'^\d+\.?\d*';
   static String nameRegExp = r"^[A-Za-zÆØÅæøå]+$";
-  static String phonRegExp = r'^(?:[+0]9)?[0-9]{10}$;';
+  static String phonRegExp =
+      r"^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$";
   static String pincodepattern = r'^\d{6}$';
 
   /// Validation Expression Pattern
@@ -53,25 +55,28 @@ class RegularExpressionUtils {
 class ValidationMethod {
   /// EMAIL VALIDATION METHOD
   static String? validateEmail(value) {
-    String pattern = r"^[a-zA-Z0-9.a-zA-Z0-9.!"
-        r"#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-
-    RegExp regex = RegExp(pattern);
-    if (value == null || value.isEmpty || !regex.hasMatch(value)) {
-      return 'Enter a valid email address';
-    } else {
-      return null;
+    bool regex = RegExp(RegularExpressionUtils.emailPattern).hasMatch(value);
+    if (value == null) {
+      return ValidationMsg.emailIsRequired;
+    } else if (regex == false) {
+      return ValidationMsg.enterValidEmail;
     }
+    return null;
   }
 
   /// MOBILE VALIDATION METHOD
   static String? validatePhoneNo(value) {
-    bool regex = RegExp(RegularExpressionUtils.phonRegExp).hasMatch(value);
+    bool regex = RegExp(RegularExpressionUtils.digitsPattern).hasMatch(value);
     if (value == null) {
       return 'Enter phone number';
     } else if (regex == false) {
       return ValidationMsg.phoneInvalid;
+    } else if (value.length < 10) {
+      return ValidationMsg.mobileNoLength;
+    } else if (value.length > 10) {
+      return ValidationMsg.mobileNoLengthMoreThan10;
     }
+    return null;
   }
 
   ///PINCODE VALIDATION METHOD

@@ -9,15 +9,22 @@ import '../commanWidgits/common_stepar.dart';
 import '../commanWidgits/common_take_selectphoto.dart';
 import '../service/import_file.dart';
 import 'choose_image.dart';
+import 'details.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends StatefulWidget {
+  @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
   int currentStap = 0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
             child: CustomText(
           'Post An Item',
           fontWeight: FontWeight.w600,
@@ -29,7 +36,7 @@ class PostItem extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: CustomText(
+              child: const CustomText(
                 'Cancel',
                 fontWeight: FontWeight.w600,
                 fontSize: 20,
@@ -39,16 +46,16 @@ class PostItem extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50, left: 15, right: 15),
-            child: const CommonTakeSelectPhoto(),
+          const Padding(
+            padding: EdgeInsets.only(top: 50, left: 15, right: 15),
+            child: CommonTakeSelectPhoto(),
           ),
           SizedBox(
             height: 20.h,
           ),
-          const Row(
+           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: Divider(
                   thickness: 3,
                   color: ColorUtils.grey,
@@ -57,10 +64,10 @@ class PostItem extends StatelessWidget {
               CustomText(
                 'Don’t have an image',
                 fontWeight: FontWeight.w500,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: Colors.black,
               ),
-              Expanded(
+              const Expanded(
                 child: Divider(
                   thickness: 3,
                   color: ColorUtils.grey,
@@ -82,8 +89,8 @@ class PostItem extends StatelessWidget {
                     height: 50,
                     width: double.infinity,
                     color: Colors.grey.shade200,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 15),
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 15),
                       child: Row(
                         children: [
                           Icon(Icons.search),
@@ -98,7 +105,20 @@ class PostItem extends StatelessWidget {
           Spacer(),
           CommonStaper(
             currentStep: 1,
-            onTap: () {},
+            steps1: 'photo',
+            steps2: 'Details',
+            steps3: 'Finish',
+            text1: '1',
+            text2: '2',
+            text3: '3',
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Details(),
+                  ));
+            },
+            title: 'Next',
           ),
         ],
       ),

@@ -44,18 +44,18 @@ class _CartScreenState extends State<CartScreen> {
                   SizedBox(
                     width: 70.w,
                   ),
-                  const Text(
+                   Text(
                     'Cart',
                     style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
-                        fontSize: 30),
+                        fontSize: 30.sp),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              height: 150.w,
+              height: 50.w,
             ),
             Center(
               child: SizedBox(
@@ -68,11 +68,11 @@ class _CartScreenState extends State<CartScreen> {
             SizedBox(
               height: 10.h,
             ),
-            const Text(
+             Text(
               'Cart is Empty',
               style: TextStyle(
                   fontFamily: 'Poppins',
-                  fontSize: 25,
+                  fontSize: 25.sp,
                   fontWeight: FontWeight.w600),
             ),
           ],

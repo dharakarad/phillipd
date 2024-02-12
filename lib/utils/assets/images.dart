@@ -13,4 +13,9 @@ class ImageWidgits {
   static String flower1 = "${basePath}flower1.png";
   static String flower2 = "${basePath}flower2.png";
   static String flower3 = "${basePath}flower3.png";
+  static String flower4 = "${basePath}flower4.png";
+  static String map = "${basePath}Rectangle 33.png";
+  static String elipse10 = "${basePath}Ellipse 10.png";
+  static String elipse11 = "${basePath}Ellipse 11.png";
+  static String elipse12 = "${basePath}Ellipse 12.png";
 }

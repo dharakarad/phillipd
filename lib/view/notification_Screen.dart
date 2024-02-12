@@ -64,12 +64,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   SizedBox(
                     width: 70.w,
                   ),
-                  const Text(
+                   Text(
                     'Notification',
                     style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
-                        fontSize: 30),
+                        fontSize: 30.sp),
                   ),
                 ],
               ),
@@ -94,7 +94,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
-                          fontSize: 19,
+                          fontSize: 19.sp,
                           color: Colors.black),
                     )),
               ),
@@ -140,8 +140,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               ),
                               Text(
                                 box[index]['cotital'],
-                                style: const TextStyle(
-                                    fontFamily: 'Poppins', fontSize: 10),
+                                style:  TextStyle(
+                                    fontFamily: 'Poppins', fontSize: 10.sp),
                                 textAlign: TextAlign.justify,
                               )
                             ],

@@ -55,14 +55,14 @@ class _AddressState extends State<Address> {
                       SizedBox(
                         width: 90.w,
                       ),
-                      const Text(
+                       Text(
                         'Address',
                         style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
-                            fontSize: 30),
+                            fontSize: 30.sp,
                       ),
-                    ],
+                       )],
                   ),
                 ),
 
@@ -154,7 +154,7 @@ class _AddressState extends State<Address> {
                               builder: (context) => Account(),
                             ));
                       } else {
-                        final snackbar = SnackBar(
+                        final snackbar = const SnackBar(
                             backgroundColor: Colors.green,
                             content: Text(
                               'plese Fill All Details',

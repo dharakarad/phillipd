@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:phlipped/commanWidgits/common_tabbar.dart';
 import 'package:phlipped/utils/color_util.dart';
+import 'package:phlipped/view/massage.dart';
+
+import '../commanWidgits/common_gridview_builder.dart';
+import 'buyer_post_details.dart';
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -74,12 +79,20 @@ class _homeState extends State<home> {
           actions: [
             Padding(
               padding: EdgeInsets.only(right: 15.w),
-              child: SvgPicture.asset('assets/icon/ic_chat.svg'),
+              child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Message(),
+                        ));
+                  },
+                  child: SvgPicture.asset('assets/icon/ic_chat.svg')),
             )
           ],
         ),
         body: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
               TextFormField(
@@ -98,55 +111,11 @@ class _homeState extends State<home> {
               SizedBox(
                 height: 10.h,
               ),
-              TabBar(
-                  // unselectedLabelColor: Colors.redAccent,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      gradient: ColorUtils.appGrediant),
-                  unselectedLabelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: ColorUtils.black),
-                  labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.white),
-                  tabs: [
-                    Tab(
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 107.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text('All'),
-                      ),
-                    ),
-                    Tab(
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 107.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text('Open'),
-                      ),
-                    ),
-                    Tab(
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 36.h,
-                        width: 107.w,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text('Got One?'),
-                      ),
-                    ),
-                  ]),
+              CommonTabBar(
+                title1: 'All',
+                title2: 'Open',
+                title3: 'Got One?',
+              ),
               SizedBox(
                 height: 5.h,
               ),
@@ -161,51 +130,22 @@ class _homeState extends State<home> {
                   //scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
                     return Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: ColorUtils.grey),
-                        child: Column(
-                          children: [
-                            Container(
-                              height: 80.w,
-                              width: 100.w,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(_data[index]['image']),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                _data[index]['tital'],
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    color: ColorUtils.black,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Text(
-                                '\$${_data[index]['subtital']}',
-                                style: TextStyle(
-                                    color: ColorUtils.black,
-                                    fontFamily: 'Poppins',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
+                        padding: EdgeInsets.all(5),
+                        child: GestureDetector(
+                          onTap: () {
+                            if (index == 0) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => BuyerPostDetails(),
+                                  ));
+                            }
+                          },
+                          child: CommonGridView(
+                              subtital: _data[index]['subtital'],
+                              tital: _data[index]['tital'],
+                              image: _data[index]['image']),
+                        ));
                   },
                 ),
               )

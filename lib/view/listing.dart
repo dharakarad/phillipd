@@ -1,15 +1,15 @@
-import 'dart:ffi';
-
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:phlipped/commanWidgits/Custom_text.dart';
+import 'package:phlipped/commanWidgits/common_list_tile.dart';
 import 'package:phlipped/service/import_file.dart';
 import 'package:phlipped/utils/assets/common_assets.dart';
 import 'package:phlipped/utils/assets/icons.dart';
 import 'package:phlipped/utils/assets/images.dart';
+import 'package:phlipped/view/approved_product_listt.dart';
 import 'package:phlipped/view/post_item.dart';
 
 class Listing extends StatefulWidget {
@@ -24,6 +24,27 @@ class _ListingState extends State<Listing> {
     {'icon': 'IconWidgets.union2', 'tital': 'Approved'},
     {'icon': 'IconWidgets.vector', 'tital': 'Processing'},
     {'icon': 'IconWidgets.Union.svg', 'tital': 'Disapproved'},
+  ];
+  List<Map<String, dynamic>> listData = [
+    {
+     
+      'image': ImageWidgits.sofaA,
+      'tital': 'Leathr Sofa Set',
+      'subtital': 'Highest \$580 \nLowest: \$132',
+      'icon': IconWidgets.union2
+    },
+    {
+      'image': ImageWidgits.cubordC,
+      'tital': 'Wooden Shelf',
+      'subtital': 'Highest \$580 \nLowest: \$132',
+      'icon': IconWidgets.vector
+    },
+    {
+      'image': ImageWidgits.chairB,
+      'tital': 'Green Chair',
+      'subtital': 'Highest \$580 \nLowest: \$132',
+      'icon': IconWidgets.union
+    },
   ];
 
   @override
@@ -65,7 +86,7 @@ class _ListingState extends State<Listing> {
                             child: Text(
                               'New Listing',
                               style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 23),
+                                  fontWeight: FontWeight.w700, fontSize: 23.sp),
                             )),
                       )),
                 ),
@@ -106,7 +127,7 @@ class _ListingState extends State<Listing> {
                 child: CustomText(
                   'Recently Listed',
                   fontWeight: FontWeight.w600,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                 )),
           ),
           Padding(
@@ -141,69 +162,31 @@ class _ListingState extends State<Listing> {
               ),
             ),
           ),
-          CommonListTile(
-              image: ImageWidgits.chairB,
-              tital: 'Leathr Sofa Set',
-              subtital: 'Highest \$580 \nLowest: \$132',
-              icon: IconWidgets.union),
-          CommonListTile(
-              image: ImageWidgits.sofaA,
-              tital: 'Leathr Sofa Set',
-              subtital: 'Highest \$580 \nLowest: \$132',
-              icon: IconWidgets.union2),
-          CommonListTile(
-              image: ImageWidgits.cubordC,
-              tital: 'Leathr Sofa Set',
-              subtital: 'Highest \$580 \nLowest: \$132',
-              icon: IconWidgets.vector),
+          Expanded(
+            child: ListView.builder(
+              itemCount: listData.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    if (index == 0) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ApprovedProductList()));
+                    }
+                  },
+                  child: CommonListTile(
+                      tital: listData[index]['tital'],
+                      subtital: listData[index]['subtital'],
+                      icon: listData[index]['icon'],
+                      image: listData[index]['image']),
+                );
+              },
+            ),
+          )
         ],
       ),
     ));
-  }
-
-  SingleChildScrollView CommonListTile(
-      {required String tital,
-      required String subtital,
-      required String icon,
-      required String image}) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Container(
-          height: 90.w,
-          decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                    blurRadius: 1,
-                    spreadRadius: 1,
-                    color: Colors.grey.withOpacity(0.5)),
-              ]),
-          child: ListTile(
-            leading: LocalAssets(
-              imagePath: image,
-            ),
-            title: CustomText(
-              tital,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-              fontSize: 18,
-            ),
-            subtitle: CustomText(
-              subtital,
-              fontWeight: FontWeight.w400,
-              color: Colors.black,
-            ),
-            trailing: LocalAssets(
-              height: 30.w,
-              scaleSize: 5,
-              imagePath: icon,
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   Column commonRecent(

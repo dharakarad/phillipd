@@ -4,7 +4,11 @@ import 'package:phlipped/utils/color_util.dart';
 import '../utils/typedef_utils.dart' as typdef;
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, this.onTap, this.title});
+  const CustomButton({
+    super.key,
+    this.onTap,
+    this.title,
+  });
   final typdef.OnTap? onTap;
   final String? title;
 
@@ -17,11 +21,12 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           gradient: ColorUtils.appGrediant),
       child: GestureDetector(
+          onTap: onTap,
           child: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Text(
-                title ?? "",
+                title ?? '',
                 style: TextStyle(
                     color: Colors.white,
                     fontFamily: 'Poppins',
@@ -29,8 +34,7 @@ class CustomButton extends StatelessWidget {
                     fontSize: 14.sp),
               ),
             ),
-          ),
-          onTap: onTap),
+          )),
     );
   }
 }

@@ -114,8 +114,7 @@ class _SignUpState extends State<SignUp> {
                     CommonTextField(
                       hintText: 'Email',
                       pIcon: LocalAssets(imagePath: IconWidgets.email),
-                      regularExpression:
-                          RegularExpressionUtils.emailValidationPattern,
+                      regularExpression: RegularExpressionUtils.emailPattern,
                       validationType: ValidationType.email,
                       validationMessage: ValidationMsg.emailIsRequired,
                       textInputType: TextInputType.emailAddress,
@@ -177,10 +176,10 @@ class _SignUpState extends State<SignUp> {
                       maxLength: 10,
                       hintText: VariableUtils.phoneNumber,
                       pIcon: LocalAssets(imagePath: IconWidgets.phoneIcon),
-                      regularExpression: RegularExpressionUtils.phonRegExp,
-                      validationType: ValidationType.phoNumber,
+                      regularExpression: RegularExpressionUtils.digitsPattern,
+                      validationType: ValidationType.PNumber,
                       validationMessage: ValidationMsg.phoneIsRequired,
-                      textInputType: TextInputType.phone,
+                      textInputType: TextInputType.number,
                       isValidate: true,
                     ),
                     // Padding(

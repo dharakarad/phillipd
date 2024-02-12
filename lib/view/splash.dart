@@ -15,8 +15,12 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2) ,() {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => SignUp(),));
+    Timer(const Duration(seconds: 2), () {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const SignUp(),
+          ));
     });
   }
 
@@ -28,7 +32,7 @@ class _SplashState extends State<Splash> {
         child: Image(
             height: 46.98.h,
             width: 260.w,
-            image: AssetImage('assets/images/logo.png')),
+            image: const AssetImage('assets/images/logo.png')),
       ),
     ));
   }

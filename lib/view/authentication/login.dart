@@ -70,8 +70,8 @@ class _loginState extends State<login> {
                             pIcon:
                                 LocalAssets(imagePath: IconWidgets.phoneIcon),
                             regularExpression:
-                                RegularExpressionUtils.phonRegExp,
-                            validationType: ValidationType.phoNumber,
+                                RegularExpressionUtils.digitsPattern,
+                            validationType: ValidationType.PNumber,
                             validationMessage: ValidationMsg.phoneIsRequired,
                             textInputType: TextInputType.phone,
                             isValidate: true,

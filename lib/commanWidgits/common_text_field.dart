@@ -27,7 +27,7 @@ enum ValidationType {
 
 typedef OnChangeString = void Function(String value);
 
-class CommonTextField extends StatefulWidget {
+class CommonTextField extends StatelessWidget {
   final String? titleText;
   final String? initialValue;
   final bool? isValidate;
@@ -42,8 +42,8 @@ class CommonTextField extends StatefulWidget {
   final TextEditingController? textEditController;
   final int? maxLine;
   final int? maxLength;
-  Widget? sIcon;
-  Widget? pIcon;
+  final Widget? sIcon;
+  final Widget? pIcon;
   final bool? obscureValue;
   final bool? withOutIcon;
   final double? containerHeight;
@@ -51,7 +51,7 @@ class CommonTextField extends StatefulWidget {
   final TextStyle? hintStyle;
   final OnChangeString? onChange;
   final bool? isAddress;
-  final TextCapitalization? textCapitalization;
+
   final bool? useRegularExpression;
   final bool? prefix;
   final Color? borderColor;
@@ -61,6 +61,7 @@ class CommonTextField extends StatefulWidget {
   final Widget? localAssets;
   final bool? obscureText;
   final bool? passText;
+  final bool textCapitalization;
 
   CommonTextField(
       {super.key,
@@ -83,7 +84,6 @@ class CommonTextField extends StatefulWidget {
       this.containerBgColor,
       this.hintStyle,
       this.isAddress,
-      this.textCapitalization,
       this.useRegularExpression,
       this.prefix,
       this.borderColor,
@@ -96,14 +96,8 @@ class CommonTextField extends StatefulWidget {
       this.obscureText,
       this.passText,
       this.maxLength,
+      this.textCapitalization = false,
       this.title});
-
-  @override
-  State<CommonTextField> createState() => _CommonTextFieldState();
-}
-
-class _CommonTextFieldState extends State<CommonTextField> {
-  Widget? pIcon;
 
   /// PLEASE IMPORT GETX PACKAGE
   @override
@@ -114,44 +108,48 @@ class _CommonTextFieldState extends State<CommonTextField> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText(
-              widget.title ?? "",
+              title ?? "",
               fontFamily: 'Poppins',
               fontWeight: FontWeight.w600,
               fontSize: 17,
             ),
             TextFormField(
               textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.text,
-              maxLength: widget.maxLength ?? null,
-              inputFormatters: [
-                NoLeadingSpaceFormatter(),
-                FilteringTextInputFormatter.deny(
-                  RegExp(r'^0+'),
-                ),
-              ],
-              obscureText: widget.validationType == ValidationType.password
-                  ? widget.obscureValue ?? false
+              keyboardType: textInputType ?? TextInputType.text,
+              maxLength: maxLength ?? null,
+              inputFormatters:
+                  regularExpression!.isEmpty || regularExpression == ""
+                      ? [
+                          LengthLimitingTextInputFormatter(inputLength),
+                          NoLeadingSpaceFormatter()
+                        ]
+                      : [
+                          LengthLimitingTextInputFormatter(inputLength),
+                          FilteringTextInputFormatter.allow(
+                              RegExp(regularExpression!)),
+                          NoLeadingSpaceFormatter()
+                        ],
+              obscureText: validationType == ValidationType.password
+                  ? obscureValue ?? false
                   : false,
               validator: (value) {
-                return widget.isValidate == false
+                return isValidate == false
                     ? null
-                    : widget.validationType == ValidationType.email
+                    : validationType == ValidationType.email
                         ? ValidationMethod.validateEmail(value)
-                        : widget.validationType == ValidationType.password
+                        : validationType == ValidationType.password
                             ? ValidationMethod.validatePassword(value)
-                            : widget.validationType == ValidationType.PNumber
+                            : validationType == ValidationType.PNumber
                                 ? ValidationMethod.validatePhoneNo(value)
-                                : widget.validationType ==
-                                        ValidationType.pinCode
+                                : validationType == ValidationType.pinCode
                                     ? ValidationMethod.validateZipCode(value)
-                                    : widget.validationType ==
-                                            ValidationType.none
+                                    : validationType == ValidationType.none
                                         ? ValidationMethod.validateIsRequired(
                                             value)
                                         : ValidationMethod.validateIsRequired(
                                             value);
               },
-              controller: widget.textEditController,
+              controller: textEditController,
               decoration: InputDecoration(
                   filled: true,
                   fillColor: Color(0xFFF2F3F2),
@@ -161,10 +159,10 @@ class _CommonTextFieldState extends State<CommonTextField> {
                       borderRadius: BorderRadius.circular(8)),
                   prefixIcon: Padding(
                     padding: EdgeInsets.all(12),
-                    child: widget.pIcon,
+                    child: pIcon,
                   ),
-                  suffixIcon: widget.sIcon,
-                  hintText: widget.hintText,
+                  suffixIcon: sIcon,
+                  hintText: hintText,
                   hintStyle: const TextStyle(
                     color: Color(0xff1616164d),
                     fontFamily: 'Poppins',

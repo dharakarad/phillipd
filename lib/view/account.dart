@@ -5,6 +5,7 @@ import 'package:phlipped/service/import_file.dart';
 import 'package:phlipped/view/address.dart';
 import 'package:phlipped/view/authentication/change_password.dart';
 import 'package:phlipped/view/edit_profile.dart';
+import 'package:phlipped/view/history.dart';
 import 'package:phlipped/view/listing.dart';
 import 'package:phlipped/utils/color_util.dart';
 
@@ -75,7 +76,7 @@ class _AccountState extends State<Account> {
                   bottom: 0,
                   //bottom: 0,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: InkWell(
                       onTap: () {
                         Navigator.push(
@@ -130,8 +131,11 @@ class _AccountState extends State<Account> {
                 itemCount: tab.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 20, left: 29, right: 29),
+                    padding: const EdgeInsets.only(
+                      bottom: 10,
+                      left: 29,
+                      right: 29,
+                    ),
                     child: InkWell(
                       onTap: () {
                         if (tab[index]['tital'] == "Address") {
@@ -150,6 +154,11 @@ class _AccountState extends State<Account> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Listing()));
+                        } else if (tab[index]['tital'] == "History") {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => History()));
                         }
                       },
                       child: Container(

@@ -4,8 +4,8 @@ import '../service/import_file.dart';
 
 import 'custom_btn.dart';
 
-class CommonStaper extends StatelessWidget {
-  const CommonStaper(
+class CommonStaper4 extends StatelessWidget {
+  const CommonStaper4(
       {super.key,
       required this.currentStep,
       required this.onTap,
@@ -52,6 +52,7 @@ class CommonStaper extends StatelessWidget {
               steps1 ?? '',
               steps2 ?? '',
               steps3 ?? '',
+              steps4 ?? '',
             ],
             radius: 45,
             currentStep: currentStep,
@@ -59,6 +60,7 @@ class CommonStaper extends StatelessWidget {
               Text(text1 ?? ''),
               Text(text2 ?? ''),
               Text(text3 ?? ''),
+              Text(text4 ?? ''),
             ],
           ),
           Padding(

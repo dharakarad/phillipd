@@ -38,12 +38,12 @@ class _NoNotificationScreenState extends State<NoNotificationScreen> {
                   SizedBox(
                     width: 70.w,
                   ),
-                  const Text(
+                   Text(
                     'Notification',
                     style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
-                        fontSize: 30),
+                        fontSize: 30.sp),
                   ),
                 ],
               ),
@@ -55,18 +55,18 @@ class _NoNotificationScreenState extends State<NoNotificationScreen> {
             SizedBox(
               height: 10.h,
             ),
-            const Text(
+             Text(
               'NO notification',
               style: TextStyle(
                   fontFamily: 'Poppins',
-                  fontSize: 25,
+                  fontSize: 25.sp,
                   fontWeight: FontWeight.w700),
             ),
-            const Text(
+             Text(
               'Check back here for Updates',
               style: TextStyle(
                   fontFamily: 'Poppins',
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.w500),
             ),
           ],

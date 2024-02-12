@@ -23,4 +23,8 @@ class IconWidgets {
   static String vector = "${basePath}Vector.svg";
   static String gallery = "${basePath}ic_ gallery.svg";
   static String camera = "${basePath}ic_camera.svg";
+  static String forward = "${basePath}bavkVector.svg";
+  static String condition = "${basePath}ic_condition.svg";
+  static String truck = "${basePath}ic_truck.svg";
+  static String send = "${basePath}ic_chat.svg";
 }
