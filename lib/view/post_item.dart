@@ -1,7 +1,9 @@
+import 'package:get/get.dart';
 import 'package:horizontal_stepper_flutter/horizontal_stepper_flutter.dart';
 import 'package:phlipped/commanWidgits/Custom_text.dart';
 import 'package:phlipped/commanWidgits/common_text_field.dart';
 import 'package:phlipped/commanWidgits/custom_btn.dart';
+import 'package:phlipped/image_picker_controler.dart';
 import 'package:phlipped/utils/assets/common_assets.dart';
 import 'package:phlipped/utils/assets/icons.dart';
 
@@ -17,7 +19,12 @@ class PostItem extends StatefulWidget {
 }
 
 class _PostItemState extends State<PostItem> {
+  ImagePickerController controller = Get.put(ImagePickerController());
   int currentStap = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +53,18 @@ class _PostItemState extends State<PostItem> {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 50, left: 15, right: 15),
-            child: CommonTakeSelectPhoto(),
+          Padding(
+            padding: const EdgeInsets.only(top: 50, left: 15, right: 15),
+            child: InkWell(
+                onTap: () {
+                  controller.getimage();
+                },
+                child: CommonTakeSelectPhoto()),
           ),
           SizedBox(
             height: 20.h,
           ),
-           Row(
+          Row(
             children: [
               const Expanded(
                 child: Divider(

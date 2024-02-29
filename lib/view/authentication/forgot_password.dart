@@ -90,8 +90,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 SizedBox(
                   height: 20.h,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20),
                   child: Text(
                     VariableUtils.otpSend,
                     style: TextStyle(

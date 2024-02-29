@@ -2,26 +2,23 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:phlipped/service/import_file.dart';
 import 'package:phlipped/view/authentication/sighn_up.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
 
   @override
-  State<Splash> createState() => _SplashState();
+  State<Splash> createState() => SplashState();
 }
 
-class _SplashState extends State<Splash> {
+class SplashState extends State<Splash> {
+  static const String KEYSIGHNUP = 'Sigh Up';
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const SignUp(),
-          ));
-    });
+    whereToGo();
   }
 
   @override
@@ -35,5 +32,34 @@ class _SplashState extends State<Splash> {
             image: const AssetImage('assets/images/logo.png')),
       ),
     ));
+  }
+
+  void whereToGo() async {
+    var sharePref = await SharedPreferences.getInstance();
+    var isLoggedin = sharePref.getBool(KEYSIGHNUP);
+    Timer(const Duration(seconds: 2), () {
+      if (isLoggedin != null) {
+        if (isLoggedin) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CommonBottomBar(),
+              ));
+        } else {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const SignUp(),
+              ));
+        }
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignUp(),
+            ));
+      }
+      //
+    });
   }
 }

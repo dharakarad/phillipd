@@ -17,10 +17,24 @@ dependencies:
   lottie: ^3.0.0
   dotted_border: ^2.1.0
   horizontal_stepper_flutter: ^1.0.3
+  http: ^1.2.0
+  get: ^4.6.6
+
+
+
+
+
 
 
 
   cupertino_icons: ^1.0.2
+  image_picker: ^1.0.7
+  shared_preferences: ^2.2.2
+
+
+
+
+
 
 dev_dependencies:
   flutter_test:

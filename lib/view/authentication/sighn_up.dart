@@ -4,6 +4,8 @@ import 'package:phlipped/utils/assets/common_assets.dart';
 import 'package:phlipped/utils/assets/icons.dart';
 import 'package:phlipped/utils/assets/images.dart';
 import 'package:phlipped/utils/variable_utils.dart';
+import 'package:phlipped/view/splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../service/import_file.dart';
 import '../../utils/no_leading_space.dart';
@@ -106,9 +108,6 @@ class _SignUpState extends State<SignUp> {
                     //         )),
                     //   ),
                     // ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
 
                     ///...........Email.........
                     CommonTextField(
@@ -165,10 +164,6 @@ class _SignUpState extends State<SignUp> {
                     //         )),
                     //   ),
                     // ),
-
-                    SizedBox(
-                      height: 20.h,
-                    ),
 
                     /// ...........phone...............
                     CommonTextField(
@@ -227,9 +222,6 @@ class _SignUpState extends State<SignUp> {
                     //         )),
                     //   ),
                     // ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
 
                     ///.............password.............
                     CommonTextField(
@@ -316,7 +308,11 @@ class _SignUpState extends State<SignUp> {
                     ///.............button...........
                     CustomButton(
                         title: 'Sign Up',
-                        onTap: () {
+                        onTap: () async {
+                          // If SuccessFully Login(cred are currect)
+                          var sharePref = await SharedPreferences.getInstance();
+                          sharePref.setBool(SplashState.KEYSIGHNUP, true);
+
                           if (_formKey.currentState!.validate()) {
                             Navigator.push(
                                 context,
@@ -324,7 +320,7 @@ class _SignUpState extends State<SignUp> {
                                   builder: (context) => CommonBottomBar(),
                                 ));
                           } else {
-                            final snackbar = SnackBar(
+                            const snackbar = SnackBar(
                                 backgroundColor: Colors.green,
                                 content: Text(
                                   'plese Fill All Details',
@@ -363,7 +359,7 @@ class _SignUpState extends State<SignUp> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                        const Text(
                           'Already have an account? ',
                           style: TextStyle(
                               fontFamily: 'Poppins',
@@ -379,7 +375,7 @@ class _SignUpState extends State<SignUp> {
                                     ));
                               }
                             },
-                            child: Text(
+                            child: const Text(
                               'Login ',
                               style: TextStyle(
                                   decoration: TextDecoration.underline,

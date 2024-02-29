@@ -83,6 +83,13 @@ class _DetailsState extends State<Details> {
           Spacer(),
           CommonStaper(
               currentStep: 2,
+              steps1: 'Photo',
+              steps2: 'Details',
+              steps3: 'Finish',
+              text1: '1',
+              text2: '2',
+              text3: '3'
+                  '',
               onTap: () {
                 Navigator.pushReplacement(
                     context,
