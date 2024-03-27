@@ -19,6 +19,7 @@ dependencies:
   horizontal_stepper_flutter: ^1.0.3
   http: ^1.2.0
   get: ^4.6.6
+  modal_progress_hud_nsn: ^0.5.1
 
 
 

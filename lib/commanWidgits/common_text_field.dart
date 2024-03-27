@@ -99,7 +99,6 @@ class CommonTextField extends StatelessWidget {
       this.textCapitalization = false,
       this.title});
 
-  /// PLEASE IMPORT GETX PACKAGE
   @override
   Widget build(BuildContext context) {
     return Padding(

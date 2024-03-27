@@ -313,22 +313,22 @@ class _SignUpState extends State<SignUp> {
                           var sharePref = await SharedPreferences.getInstance();
                           sharePref.setBool(SplashState.KEYSIGHNUP, true);
 
-                          if (_formKey.currentState!.validate()) {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CommonBottomBar(),
-                                ));
-                          } else {
-                            const snackbar = SnackBar(
-                                backgroundColor: Colors.green,
-                                content: Text(
-                                  'plese Fill All Details',
-                                  style: TextStyle(color: Colors.black),
-                                ));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackbar);
-                          }
+                          // if (_formKey.currentState!.validate()) {
+                          //   Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) => CommonBottomBar(),
+                          //       ));
+                          // } else {
+                          //   const snackbar = SnackBar(
+                          //       backgroundColor: Colors.green,
+                          //       content: Text(
+                          //         'plese Fill All Details',
+                          //         style: TextStyle(color: Colors.black),
+                          //       ));
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(snackbar);
+                          // }
                         }),
 
                     // Container(
